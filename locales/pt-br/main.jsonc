@@ -1,0 +1,20 @@
+{
+  "resources": {
+    "bye": ["Obrigado pela preferência!"],
+    "howCanIHelpHead": ["Bem vindo a pizzaria. Gostaria de ver o cardapio?"],
+    "howCanIHelpTail": [
+      "Gostaria de mais alguma coisa?",
+      "Posso ajudar em mais alguma coisa?"
+    ],
+    // should offer help
+    "didntUnderstand": [
+      "Desculpe, não entendi. Você precisa de ajuda?",
+      "Perdão, acho que não entendi. Está precisando de ajuda?",
+      "Não entendi muito bem. Você precisa de ajuda?"
+    ],
+    "suggestedYes": "Sim",
+    "suggestedNo": "Nao",
+    "suggestedHelp": "Me ajude",
+    "suggestedQuit": "Sair"
+  }
+}

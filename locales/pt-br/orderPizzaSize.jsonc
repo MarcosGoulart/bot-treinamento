@@ -1,0 +1,18 @@
+{
+    "resources": {
+        "brigadeiro":"Brigadeiro",
+        "calabresa":"Calabresa",
+        "frango com catupiry":"Frando com Catupiry",
+        "marguerita":"Marguerita",
+        "muçarela":"Muçarela",
+        "napolitana":"Napolitana",
+        "palmito":"Palmito",
+        "portuguesa":"Portuguesa",
+        "quatro queijos":"Quatro Queijos",
+        "romeu e julieta":"Romeu e Julieta",
+        "positive":"Pedido finalizado com Sucesso!",
+        "negative":"Pedido cancelado!",
+        "askAboutPizzaSize":"ok, quantas pizzas ${size}s de ${pizza} vais querer?",
+        "askAboutPizza":"ok, quantas pizzas de ${pizza} vais querer?"
+    }
+}

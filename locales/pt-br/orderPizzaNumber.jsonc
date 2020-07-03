@@ -1,0 +1,5 @@
+{
+    "resources": {
+        "askAboutPizzaNumber":"ok, de que tamanho queres a(s) ${numero} pizza(s) de ${pizza}?"
+    }
+}

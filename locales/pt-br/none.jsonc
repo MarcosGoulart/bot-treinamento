@@ -1,0 +1,5 @@
+{
+  "resources": {
+    "sorry": "Desculpe, mas não entendi o que você deseja com: ${msg}"
+  }
+}
