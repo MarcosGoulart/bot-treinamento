@@ -2,8 +2,9 @@
   "resources": {
     "whatICanDo": [
       {
-        "text": "Sou o Bot da pizzaria, estou aqui para ajudar você a pedir sua pizza.",
-        "speak": "<speak><prosody pitch='-2st' rate='+5%'><p><s>Posso te ajudar a fazer o seu check-in e consultar o status do seu voo!</s> <s> Tester, para fazer check-in, utilize os localizadores </s> <s><say-as interpret-as='characters'>H394HS</say-as> para o Aeroporto Salgado Filho</s> <s> e <say-as interpret-as='characters'> MD95BH </say-as> para o Aeroporto Internacional Galeão Antonio Carlos Jobim </s>. Para realizar consultas sobre status do voo, use os códigos <s><say-as interpret-as='characters'>1975</say-as></s> <s><say-as interpret-as='characters'>2117</say-as></s> <s><say-as interpret-as='characters'>2111</say-as></s><s><say-as interpret-as='characters'>1045</say-as></s></p></prosody></speak>"
+        "text": "Sou o bot da pizzaria, estou aqui para ajudar você a pedir sua pizza.",
+        "speak": "<speak><prosody pitch='-2st' rate='+5%'><p><s>Posso te ajudar a fazer o seu check-in e consultar o status do seu voo!</s> <s> Tester, para fazer check-in, utilize os localizadores </s> <s><say-as interpret-as='characters'>H394HS</say-as> para o Aeroporto Salgado Filho</s> <s> e <say-as interpret-as='characters'> MD95BH </say-as> para o Aeroporto Internacional Galeão Antonio Carlos Jobim </s>. Para realizar consultas sobre status do voo, use os códigos <s><say-as interpret-as='characters'>1975</say-as></s> <s><say-as interpret-as='characters'>2117</say-as></s> <s><say-as interpret-as='characters'>2111</say-as></s><s><say-as interpret-as='characters'>1045</say-as></s></p></prosody></speak>",
+        "bye": ["Obrigado pela preferência!"]
       }
     ]
   }

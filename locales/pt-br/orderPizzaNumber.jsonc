@@ -1,5 +1,8 @@
 {
     "resources": {
-        "askAboutPizzaNumber":"ok, de que tamanho queres a(s) ${numero} pizza(s) de ${pizza}?"
+        "askAboutPizzaNumberSingular":"ok, de que tamanho tu queres a pizza de ${pizza}?",
+        "askAboutPizzaNumberPlural":"ok, de que tamanho queres as ${numero} pizzas de ${pizza}?",
+        "bye": ["Obrigado pela preferência!"]
+
     }
 }

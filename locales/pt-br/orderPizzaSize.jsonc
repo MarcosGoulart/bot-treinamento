@@ -2,7 +2,7 @@
     "resources": {
         "brigadeiro":"Brigadeiro",
         "calabresa":"Calabresa",
-        "frango com catupiry":"Frando com Catupiry",
+        "frango com catupiry":"Frango com Catupiry",
         "marguerita":"Marguerita",
         "muçarela":"Muçarela",
         "napolitana":"Napolitana",
@@ -13,6 +13,7 @@
         "positive":"Pedido finalizado com Sucesso!",
         "negative":"Pedido cancelado!",
         "askAboutPizzaSize":"ok, quantas pizzas ${size}s de ${pizza} vais querer?",
-        "askAboutPizza":"ok, quantas pizzas de ${pizza} vais querer?"
+        "askAboutPizza":"ok, quantas pizzas de ${pizza} vais querer?",
+        "bye": ["Obrigado pela preferência!"]
     }
 }

@@ -1,5 +1,6 @@
 {
     "resources": {
-      "howCanIHelpHead": ["Bem vindo a pizzaria. Gostaria de ver o cardapio?"]
+      "howCanIHelpHead": ["Bem vindo a pizzaria. Gostaria de ver o cardápio?"],
+      "bye": ["Obrigado pela preferência!"]
     }
   }

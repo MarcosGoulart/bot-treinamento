@@ -19,6 +19,7 @@ class GreetingDialog extends BaseDialog {
   }
 
   async displayStep(stepContext) {
+  
     return await stepContext.context.sendActivity(
       this.getRandomResponse("handle")
     );

@@ -1,7 +1,7 @@
 {
   "resources": {
     "bye": ["Obrigado pela preferência!"],
-    "howCanIHelpHead": ["Bem vindo a pizzaria. Gostaria de ver o cardapio?"],
+    "howCanIHelpHead": ["Bem vindo a pizzaria. Gostaria de ver o cardápio?"],
     "howCanIHelpTail": [
       "Gostaria de mais alguma coisa?",
       "Posso ajudar em mais alguma coisa?"

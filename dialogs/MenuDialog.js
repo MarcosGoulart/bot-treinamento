@@ -1,7 +1,7 @@
 const { TextPrompt, WaterfallDialog } = require("botbuilder-dialogs");
 
 //const { menuAPI } = require("../api");
-const { dialogs } = require("../config");
+const { dialogs, intents } = require("../config");
 const { MessageFactory2 } = require("../helpers");
 
 const BaseDialog = require("./BaseDialog");
@@ -28,7 +28,18 @@ class MenuDialog extends BaseDialog {
   }
 
   async showMenuStep(stepContext){
-    const prompt = MessageFactory2.text(
+    const prompt = MessageFactory2.suggestedActions([
+        this.getRandomResponse("brigadeiro"),
+        this.getRandomResponse("calabresa"),
+        this.getRandomResponse("frango com catupiry"),
+        this.getRandomResponse("marguerita"),
+        this.getRandomResponse("muçarela"),
+        this.getRandomResponse("napolitana"),
+        this.getRandomResponse("palmito"),
+        this.getRandomResponse("portuguesa"),
+        this.getRandomResponse("quatro queijos"),
+        this.getRandomResponse("romeu e julieta"),
+    ],
       this.getRandomResponse("showMenu"),
     );
     return stepContext.prompt(TEXT_PROMPT, { prompt });
@@ -38,6 +49,11 @@ class MenuDialog extends BaseDialog {
     const luisResults = await this.luisRecognizer.executeLuisQuery(
       stepContext.context
     );
+    const topIntent = this.luisRecognizer.topIntent(luisResults);
+    if(topIntent == intents.cancel) {
+      await stepContext.context.sendActivity(this.getRandomResponse("bye"));
+      return await stepContext.cancelAllDialogs(true);
+    }
     return stepContext.beginDialog(dialogs.order, {luisResults});
   }
 

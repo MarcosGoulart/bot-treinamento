@@ -13,5 +13,6 @@ module.exports = {
   orderSize: "orderSize",
   orderPizzaSize: "orderPizzaSize",
   orderPizzaNumber: "orderPizzaNumber",
+  orderWrong: "orderWrong",
   none: "none"
 };

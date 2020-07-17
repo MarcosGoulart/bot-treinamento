@@ -1,5 +1,6 @@
 {
   "resources": {
-    "handle": ["Olá! Sou a assistente da pizzaria."]
+    "handle": ["Olá! Sou a assistente da pizzaria."],
+    "bye": ["Obrigado pela preferência!"]
   }
 }

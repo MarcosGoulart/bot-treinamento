@@ -2,8 +2,8 @@ const { TextPrompt, WaterfallDialog } = require("botbuilder-dialogs");
 
 const { inspect } =  require("util");
 
-const { MessageFactory2, pizzaHelper } = require("../../helpers");
-const { dialogs } = require("../../config");
+const { MessageFactory2, pizzaHelper, orderHelper } = require("../../helpers");
+const { dialogs, intents } = require("../../config");
 
 const BaseDialog = require("../BaseDialog");
 
@@ -29,22 +29,41 @@ class OrderNumberDialog extends BaseDialog {
     async questionAboutPizza(stepContext){
       let {pizzas, numeros, tamanho, userProfile } = stepContext.options;
       console.log("cont: " + userProfile.cont)
-      let totalNumber = numeros[userProfile.cont];
-      const prompt = MessageFactory2.suggestedActions([
-              this.getRandomResponse("brigadeiro"),
-              this.getRandomResponse("calabresa"),
-              this.getRandomResponse("frango com catupiry"),
-              this.getRandomResponse("marguerita"),
-              this.getRandomResponse("muçarela"),
-              this.getRandomResponse("napolitana"),
-              this.getRandomResponse("palmito"),
-              this.getRandomResponse("portuguesa"),
-              this.getRandomResponse("quatro queijos"),
-              this.getRandomResponse("romeu e julieta"),
-          ],
-          this.getRandomResponse("askAboutPizzaNumber", {totalNumber})
-      );
+      let prompt;
+      if(numeros[userProfile.cont] == 1){
+        let totalNumber = numeros[userProfile.cont];
+        prompt = MessageFactory2.suggestedActions([
+                this.getRandomResponse("brigadeiro"),
+                this.getRandomResponse("calabresa"),
+                this.getRandomResponse("frango com catupiry"),
+                this.getRandomResponse("marguerita"),
+                this.getRandomResponse("muçarela"),
+                this.getRandomResponse("napolitana"),
+                this.getRandomResponse("palmito"),
+                this.getRandomResponse("portuguesa"),
+                this.getRandomResponse("quatro queijos"),
+                this.getRandomResponse("romeu e julieta"),
+            ],
+            this.getRandomResponse("askAboutPizzaNumberPlural", {totalNumber})
+        );
+      }else{
 
+        let totalNumber = numeros[userProfile.cont];
+        prompt = MessageFactory2.suggestedActions([
+                this.getRandomResponse("brigadeiro"),
+                this.getRandomResponse("calabresa"),
+                this.getRandomResponse("frango com catupiry"),
+                this.getRandomResponse("marguerita"),
+                this.getRandomResponse("muçarela"),
+                this.getRandomResponse("napolitana"),
+                this.getRandomResponse("palmito"),
+                this.getRandomResponse("portuguesa"),
+                this.getRandomResponse("quatro queijos"),
+                this.getRandomResponse("romeu e julieta"),
+            ],
+            this.getRandomResponse("askAboutPizzaNumberPlural", {totalNumber})
+        );
+      }
       return await stepContext.prompt(TEXT_PROMPT, { prompt });
         
     }
@@ -55,27 +74,62 @@ class OrderNumberDialog extends BaseDialog {
       const luisResults = await this.luisRecognizer.executeLuisQuery(
           stepContext.context
       );
+
+      const topIntent = this.luisRecognizer.topIntent(luisResults);
+      if(topIntent == intents.cancel) {
+        await stepContext.context.sendActivity(this.getRandomResponse("bye"));
+        return await stepContext.cancelAllDialogs(true);
+      }
+      //console.log(inspect(stepContext.context))
+      //console.log(inspect(luisResults))
+      //console.log(luisResults.entities.pizzas)
+      //console.log(luisResults.entities.$instance.pizzas)
+      const instancesPizzas = luisResults.entities.$instance.pizzas;
+      const instancesNumeros = luisResults.entities.$instance.number;
+      const instancesTamanho = luisResults.entities.$instance.tamanho;
+  
       const entities = this.luisRecognizer.getEntities(luisResults);
+      //console.log(entities.pizzas)
 
       let entitiesPizzas = entities.pizzas;
       let entitiesNumbers = [];
+      let entitiesTamanho = [];
       
       if(entities.number){
         entitiesNumbers = entities.number;
       }
-      
-      let text = luisResults.text.toLowerCase();
+      let positionsTamanhos;
+      if(entities.tamanho){
+        entitiesTamanho = entities.tamanho;
+        positionsTamanhos = pizzaHelper.positionsObjects(instancesTamanho);
+      }
 
-      let positionsNumber = pizzaHelper.positionsNumber(text, entitiesNumbers);
-      
-      positionsNumber = pizzaHelper.positionsStringNumber(text, entitiesNumbers, positionsNumber);
+      let numerosNovo = orderHelper.quatroQueijos(entitiesPizzas, entitiesNumbers);
+      console.log("numerosNovo: " + numerosNovo)
 
-      let positionsPizzas = pizzaHelper.positionsPizzas(text, entitiesPizzas);
+      let positionsNumber = pizzaHelper.positionsObjects(instancesNumeros);
 
-      let numbersResult = pizzaHelper.numbersResult(positionsNumber, positionsPizzas, entitiesNumbers);
+      if(positionsNumber && positionsTamanhos){
+        for(let i = 0; i < positionsNumber.length; i++){
+          for(let j = 0; j < positionsTamanhos.length; j++){
+            if(positionsNumber[i] == positionsTamanhos[j]){
+              positionsNumber.splice(i, 1);
+              numerosNovo.splice(i, 1);
+            }
+          }
+        }
+      }  
 
+      let positionsPizzasStart = pizzaHelper.positionsObjects(instancesPizzas);
+      let positionsPizzasEnd = pizzaHelper.positionsObjects(instancesPizzas, true);
+
+      let numbersResult = pizzaHelper.numbersResult(positionsNumber, positionsPizzasStart, numerosNovo);
+
+      let tamanhosResult = pizzaHelper.tamanhosResult(positionsTamanhos, positionsPizzasStart, positionsPizzasEnd, entitiesTamanho);
+      console.log("tamanhoResult: " + tamanhosResult)
       let totalEntitiesNumber = 0;
       if(entitiesPizzas){
+       
         if(numbersResult){
           for(let i = 0; i < numbersResult.length; i++){
             totalEntitiesNumber += numbersResult[i];
@@ -99,12 +153,27 @@ class OrderNumberDialog extends BaseDialog {
             }
           }
         }
+        
         for(let entitiesPizza of entitiesPizzas){
-          userProfile.pizzas.push(entitiesPizza);
+          userProfile.pizzas.push(entitiesPizza);     
+        }
+      
+        if(tamanhosResult){
+          if(tamanhosResult.length > 0){
+            console.log("IFS")
+            for(let entitiesSize of tamanhosResult){
+              userProfile.tamanho.push(entitiesSize);
+            }      
+          }else{
+            for(let entitiesPizza of entitiesPizzas){
+              console.log("FOR")
+              userProfile.tamanho.push(0);   
+              console.log("ELSE: " + tamanhosResult)
+            }
+          } 
         }
 
         if(numeros){
-
           if(userProfile.cont < numeros.length - 1){
             userProfile.cont += 1;
             return await stepContext.replaceDialog(dialogs.orderNumber, {pizzas, numeros, tamanho, userProfile});
@@ -112,14 +181,16 @@ class OrderNumberDialog extends BaseDialog {
         }
         pizzas = userProfile.pizzas;
         numeros = userProfile.numeros;
-        return stepContext.next({pizzas, numeros, tamanho});
+        tamanho = userProfile.tamanho;
+        //console.log("TAMANHO: " + tamanho);
+        return stepContext.next({pizzas, numeros, tamanho, topIntent, luisResults});
       }
       return await stepContext.replaceDialog(dialogs.orderNumber, {pizzas, numeros, tamanho, userProfile});
     
     }
     async endStep(stepContext) {
-      let { pizzas, numeros, tamanho } = stepContext.result;
-      return stepContext.endDialog({ pizzas, numeros, tamanho});
+      let { pizzas, numeros, tamanho, topIntent, luisResults } = stepContext.result;
+      return stepContext.endDialog({ pizzas, numeros, tamanho, topIntent, luisResults});
     }
 }
 

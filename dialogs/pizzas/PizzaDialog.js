@@ -36,14 +36,17 @@ class PizzaDialog extends BaseDialog {
     let {pizzas, numeros, tamanho } = stepContext.options;
     console.log("Entrou Pizzas")
     if(numeros && tamanho){
+      console.log("Entrou Pizzas NUMERO TAMANHO")
       let userProfile = new UserProfile(0);
       return await stepContext.beginDialog(dialogs.orderNumberSize, {pizzas, numeros, tamanho, userProfile});
     }
     if(numeros){
+      console.log("Entrou Pizzas NUMERO")
       let userProfile = new UserProfile(0);
       return await stepContext.beginDialog(dialogs.orderNumber, {pizzas, numeros, tamanho, userProfile});
     }
     if(tamanho){
+      console.log("Entrou Pizzas TAMANHO")
       let userProfile = new UserProfile(0);
       return await stepContext.beginDialog(dialogs.orderSize, {pizzas, numeros, tamanho, userProfile});
     }

@@ -29,6 +29,7 @@ class TamanhoDialog extends BaseDialog {
 
   async askAboutTamanho(stepContext){
     let {pizzas, numeros, tamanho } = stepContext.options;
+
     console.log("Entrou Tamanhos")
     if(pizzas && numeros){
       let userProfile = new UserProfile(0);

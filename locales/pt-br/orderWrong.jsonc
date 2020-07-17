@@ -10,6 +10,7 @@
         "portuguesa":"Portuguesa",
         "quatro queijos":"Quatro Queijos",
         "romeu e julieta":"Romeu e Julieta",
+        "orderWrong":"Desculpe, não temos isso no cardápio. Essas são as opções que temos: ",
         "showMenu" : "As pizzas podem ser dos tamanhos: \n  * Pequena: 6 Fatias (25 cm). \n * Média: 8 Fatias (30 cm). \n * Grande: 10 Fatias (35 cm). \n * Família 12 Fatias (40 cm). \n * Gigante: 16 Fatias (45 cm). \n\n\n As pizzas disponíveis são: \n - Brigadeiro. \n - Calabresa. \n - Frango com Catupiry. \n - Marguerita. \n - Muçarela \n  - Napolitana \n - Palmito \n - Portuguesa \n - Quatro Queijos \n - Romeu e Julieta. \n\n\n Por favor, me informe seu pedido.",
         "bye": ["Obrigado pela preferência!"]
     }
